@@ -13,21 +13,25 @@ function Projects(props) {
             title:"Hyspter | A Music Website",
             description:"A spotify clone which plays music uninterruptedly",
             imageUrl: projImg1,
+            url: "https://hyspter.vercel.app/"
         },
         {
             title:"CraveYard",
             description:"The online food delivery website!",
             imageUrl: projImg2,
+            url: "https://crave-yard.vercel.app/"
         },
         {
             title:"TextUtils",
             description:"A react based application which modifies your text.",
             imageUrl: projImg3,
+            url: "https://text-utils-five-blue.vercel.app/"
         },
         {
             title:"Random Joke Generator",
             description:"A Javacript application which generates random joke with javascript API.",
             imageUrl: projImg4,
+            url: "https://joke-generator-self-three.vercel.app/"
         }
     ]
   return (
@@ -46,7 +50,7 @@ function Projects(props) {
                         {
                             projects.map((element)=>{
                                 return(
-                                    <ProjectCards title={element.title} desc={element.description} img={element.imageUrl}/>
+                                    <ProjectCards title={element.title} desc={element.description} img={element.imageUrl} url={element.url}/>
                                 )
                             })
                         }

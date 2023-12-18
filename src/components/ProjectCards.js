@@ -8,13 +8,13 @@ function ProjectCards(props) {
     <TrackVisibility>
       {({ isVisible }) =>
       <div className={isVisible ? "animate__animated animate__slideInUp": ""}>
-        <div className="proj-imgbx">
+      <a target='_blank' href={props.url}><div className="proj-imgbx">
             <img src={props.img} alt=""/>
             <div className="proj-txt">
                 <h4>{props.title}</h4>
                 <span>{props.desc}</span>
             </div>
-        </div>
+        </div></a>
         </div>}
       </TrackVisibility>
     </div>

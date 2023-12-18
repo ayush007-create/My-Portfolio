@@ -35,7 +35,7 @@ function Skills(props) {
                         <h2>
                             Skills
                         </h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis id, minus veniam maiores perspiciatis tempora magni fuga recusandae cum praesentium iure in labore inventore assumenda nisi suscipit! Laboriosam, nobis dolor!</p>
+                        <p>A skill is the learned ability to act with determined results with good execution often within a given amount of time, energy, or both. Skills can often be divided into domain-general and domain-specific skills.</p>
                         <Carousel responsive={responsive} infinite={true} className='skill-slider'>
                         <div className="item">
                             <img src={meter1} alt=""/>

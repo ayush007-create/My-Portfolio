@@ -4,45 +4,22 @@ import contactUs from '../assets/img/contact-img.svg'
 import bgImg from '../assets/img/color-sharp2.png'
 import bgImg1 from '../assets/img/color-sharp.png'
 import 'animate.css';
+import { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 function Contact(props) {
-    const initialformdetails={
-        firstname:'',
-        lastname:'',
-        email:'',
-        phonenumber:'',
-        message:''
-    }
-    const [formDetails,setDetails] = useState(initialformdetails)
-    const [buttonText,setText] = useState('Send')
-    const [status,setStatus] = useState({})
-
-    const onformUpdate = (category,value)=>{
-        setDetails({
-            ...formDetails,
-            [category]:value
-        })
-    }
-    const handleSubmit= async(e)=>{
-        console.log("form submitted")
+    const form = useRef();
+    const sendEmail = (e) => {
         e.preventDefault();
-        setText("Sending...");
-        let response = await fetch("http://localhost:3000", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-          body: JSON.stringify(formDetails),
-        });
-        setText("Send");
-        let result = await response.json();
-        setDetails(initialformdetails);
-        if (result.code === 200) {
-          setStatus({ succes: true, message: 'Message sent successfully'});
-        } else {
-          setStatus({ succes: false, message: 'Something went wrong, please try again later.'});
-        }
-    }
-
+        console.log("Function Called")
+        emailjs.sendForm('service_pt1t0kn', 'template_ai1se9g', form.current, '-xkx81LQSVjwHgwDB')
+          .then((result) => {
+              console.log(result.text);
+              console.log("message sent")
+              e.target.reset();
+          }, (error) => {
+              console.log(error.text);
+          });
+      };
   return (
         <section className="contact" id="connect">
         <div className="container">
@@ -52,37 +29,31 @@ function Contact(props) {
                 </div>
                 <div xs={4} sm={6} md={3} className="formcol col mx-3">
                 <h2 style={{textAlign:'center'}}>Get In Touch</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form ref={form} onSubmit={sendEmail}>
                     <div className="row" id='row1'>
                         <div className="col" >
-                            <input type="text" value={formDetails.firstname} placeholder="First Name" onChange={(e) => onformUpdate('firstname',e.target.value)} />
+                            <input type="text" name='user_first_name' placeholder="First Name"/>
                         </div>
                         <div className="col">
-                        <input type="text" value={formDetails.lastname} placeholder="Last Name" onChange={(e) => onformUpdate('lastname',e.target.value)} />
+                        <input type="text"  name='user_last_name' placeholder="Last Name"/>
                         </div>
                     </div>
                     <div className="row my-3" id='row2'>
                         <div className="col">
-                            <input type="email" value={formDetails.email} placeholder="Email" onChange={(e) => onformUpdate('email',e.target.value)} />
+                            <input type="email" name='user_email' placeholder="Email"/>
                         </div>
                         <div className="col">
-                            <input type="tel" value={formDetails.phonenumber} placeholder="Phone Number" onChange={(e)=> onformUpdate('phonenumber',e.target.value)} />
+                            <input type="tel" name='user_phonenumber' placeholder="Phone Number" />
                         </div>
                     </div>
                     <div className="row my-3" id='row3'>
                         <div className="col">
-                            <textarea value={formDetails.message} placeholder="Message" cols="65" rows="6" onChange={(e) => onformUpdate('message',e.target.value)}></textarea>
+                            <textarea placeholder="Message" name='message' cols="65" rows="6"></textarea>
                         </div>
                     </div>
                     <div className="row my-3">
-                        <div className="col">
-                        <button type="button"><span>{buttonText}</span></button>
-                        </div>
-                        <div className="col">
-                        {
-                            status.message &&
-                            <p className={status.success === false ? 'Danger':'success'}>{status.message}</p>
-                        }
+                        <div className="col d-flex flex-row">
+                        <input id='Submit' type="submit" value="Send"/>
                         </div>
                     </div>
                     </form>
